@@ -2,13 +2,28 @@
   display: flex;
 }
 
-.artwork-card__viewed-indicator {
-  position: absolute;
+.artwork-card__details {
+  position: relative;
+
+  .artwork-card__viewed-indicator {
+    position: absolute;
+    left: 0;
+    width: auto;
+    margin: 0.4rem;
+    font-weight: 400;
+    padding: 0.25rem 0.5rem;
+    border-color: 1px solid #162521;
+    border-radius: 0.9rem;
+    font-size: 1rem;
+    text-align: start;
+    background-color: #F5F5F5;
+    color: #162521;
+  }
 }
 
 .artwork-card__image {
   width: 20rem;
-  position: relative;
+
 
   img {
     width: 100%;

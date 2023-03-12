@@ -21,11 +21,15 @@ export function ArtworkCard({ artwork }: Props) {
       onClick={onClick}
       rel="noreferrer"
     >
-      <div className="artwork-card__image">
+      <div className="artwork-card__details">
         {hasVisit &&
-          <span className="artwork-card__viewed-indicator">viewed</span>
+          <div className="artwork-card__viewed-indicator">
+            Viewed
+          </div>
         }
-        <img src={artwork.image} alt="" />
+        <div className="artwork-card__image">
+          <img src={artwork.image} alt="" />
+        </div>
       </div>
     </a>
   )
