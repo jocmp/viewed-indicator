@@ -121,7 +121,7 @@ export const artworks: Artwork[] = [
       }
     },
     artist: {
-      name: "Calude Monet"
+      name: "Claude Monet"
     }
   },
   {
