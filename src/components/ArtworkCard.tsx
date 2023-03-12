@@ -16,8 +16,10 @@ export function ArtworkCard({ artwork }: Props) {
   return (
     <a
       href={artwork._links.self.href}
+      target="_blank"
       className="artwork-card"
       onClick={onClick}
+      rel="noreferrer"
     >
       <div className="artwork-card__image">
         {hasVisit &&

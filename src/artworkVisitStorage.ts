@@ -1,3 +1,10 @@
+import { useCallback, useEffect, useState } from "react";
+import { ID } from "./types";
+
+interface Visit {
+  visited: true;
+}
+
 interface ArtworkVisitStorage {
   setVisited(): void;
   hasVisit(): boolean;
@@ -5,13 +12,19 @@ interface ArtworkVisitStorage {
 
 const keyPrefix = 'artwork-visit';
 
-export function useArtworkVisit(artworkId: string): ArtworkVisitStorage {
+function key(artworkId: ID) {
+  return `${keyPrefix}:${artworkId}`;
+}
+
+export function useArtworkVisit(artworkId: ID): ArtworkVisitStorage {
+  const { state: visit, setState: setVisit } = useLocalStorage<Visit>(key(artworkId));
+
   function setVisitedWithState() {
-    setVisited(artworkId);
+    setVisit({ visited: true });
   }
 
   function hasVisitWithState() {
-    return hasVisit(artworkId);
+    return !!visit?.visited;
   }
 
   return {
@@ -21,25 +34,45 @@ export function useArtworkVisit(artworkId: string): ArtworkVisitStorage {
 }
 
 export function clearAllViews() {
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i)
+  localStorage.clear();
+  window.location.reload();
+}
 
-    if (key?.startsWith(keyPrefix)) {
-      localStorage.removeItem(key);
+// https://synth.app/blog/uselocalstorage-hooks-are-nice
+function useLocalStorage<T>(key: ID) {
+  // pull the initial value from local storage if it is already set
+  const [state, setState] = useState<T | null>(() => {
+    const exValue = localStorage.getItem(key)
+    if (exValue) {
+      return JSON.parse(exValue) as T
     }
+    return null
+  })
 
-    window.location.reload();
-  }
-}
+  // save the new value when it changes
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(state))
+  }, [key, state])
 
-function setVisited(artworkId: string) {
-  try {
-    localStorage.setItem(`${keyPrefix}:${artworkId}`, `${true}`)
-  } catch (e) {
-    console.debug(`Couldn't set visit for ${artworkId}`, e);
-  }
-}
+  // memoize a storage watcher callback back because everything in hooks should be memoized
+  const storageWatcher = useCallback((e: StorageEvent) => {
+    if (e.newValue) {
+      setState((currState) => {
+        const newDat = JSON.parse(e.newValue || "null")
+        return newDat === state ? newDat : currState
+      })
+    }
+  }, [state]
+  )
 
-function hasVisit(artworkId: string) {
-  return !!localStorage.getItem(`${keyPrefix}:${artworkId}`)
+  // install the watcher
+  useEffect(() => {
+    window.addEventListener("storage", storageWatcher)
+    // stop listening on remove
+    return () => {
+      window.removeEventListener("storage", storageWatcher)
+    }
+  }, [storageWatcher, state])
+
+  return { state, setState }
 }
