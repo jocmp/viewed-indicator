@@ -4,7 +4,8 @@ Display whether a page has been visited using browser-local storage.
 
 <img src="./screenshots/viewed.png" width="600px">
 
-This demo takes advantage of React hooks, the [storage module](https://developer.mozilla.org/en-US/docs/Web/API/Storage), and storage events.
+This demo takes advantage of React hooks in conjunction with the JavaScript
+[storage module](https://developer.mozilla.org/en-US/docs/Web/API/Storage);
 
 ## Getting Started
 
