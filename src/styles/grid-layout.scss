@@ -3,18 +3,13 @@
 // https://css-tricks.com/piecing-together-approaches-for-a-css-masonry-layout/
 .grid-layout {
   columns: 4 200px;
-  column-gap: 0.5rem;
+  column-gap: 0.4rem;
 
-  div {
+  .grid-layout__item {
     width: 150px;
-    color: white;
-    margin: 0 0.5rem 0 0;
+    margin: 0 0.1rem;
     display: inline-block;
     width: 100%;
-    text-align: center;
-    font-family: system-ui;
-    font-weight: 900;
-    font-size: 2rem;
   }
 
   @include mobile {

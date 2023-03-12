@@ -1,13 +1,15 @@
 @import "./grid-layout.scss";
 @import "./artwork-card.scss";
+@import "./fonts.scss";
+@import './colors.scss';
 
 body {
   background-color: #F9F4ED;
+  color: $text-color;
+  font-family: 'EB Garamond', serif;
+  font-weight: 400;
 }
 
 .main {
   margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
 }

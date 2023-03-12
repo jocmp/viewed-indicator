@@ -1,8 +1,19 @@
+@import './colors.scss';
+
 .artwork-card {
   display: flex;
+  font-size: 1.2rem;
+
+  a {
+    text-decoration: none;
+
+    &:visited {
+      color: $text-color;
+    }
+  }
 }
 
-.artwork-card__details {
+.artwork-card__main {
   position: relative;
 
   .artwork-card__viewed-indicator {
@@ -11,20 +22,28 @@
     width: auto;
     margin: 0.4rem;
     font-weight: 400;
-    padding: 0.25rem 0.5rem;
+    padding: 0.2rem 0.6rem;
     border-color: 1px solid #162521;
     border-radius: 0.9rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
     text-align: start;
     background-color: #F5F5F5;
-    color: #162521;
   }
 }
 
+.artwork-card__details {
+  display: flex;
+  flex-direction: column;
+  padding: 0.2rem 0.6rem 0.6rem 0.6rem;
+  border-bottom: 0.0625rem solid rgba(22, 37, 33, 0.4);
+  margin-bottom: 0.6rem;
+}
+
+.artwork-card__artist {
+  color: rgba(22, 37, 33, 0.7)
+}
+
 .artwork-card__image {
-  width: 20rem;
-
-
   img {
     width: 100%;
     object-fit: contain;
