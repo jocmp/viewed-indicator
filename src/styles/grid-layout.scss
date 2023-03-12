@@ -1,0 +1,23 @@
+@import "./breakpoints.scss";
+
+// https://css-tricks.com/piecing-together-approaches-for-a-css-masonry-layout/
+.grid-layout {
+  columns: 4 200px;
+  column-gap: 0.5rem;
+
+  div {
+    width: 150px;
+    color: white;
+    margin: 0 0.5rem 0 0;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-family: system-ui;
+    font-weight: 900;
+    font-size: 2rem;
+  }
+
+  @include mobile {
+    columns: 1;
+  }
+}

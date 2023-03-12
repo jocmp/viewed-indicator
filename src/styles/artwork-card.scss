@@ -1,0 +1,17 @@
+.artwork-card {
+  display: flex;
+}
+
+.artwork-card__viewed-indicator {
+  position: absolute;
+}
+
+.artwork-card__image {
+  width: 20rem;
+  position: relative;
+
+  img {
+    width: 100%;
+    object-fit: contain;
+  }
+}

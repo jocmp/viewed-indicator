@@ -1,0 +1,13 @@
+@import "./grid-layout.scss";
+@import "./artwork-card.scss";
+
+body {
+  background-color: #F9F4ED;
+}
+
+.main {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
