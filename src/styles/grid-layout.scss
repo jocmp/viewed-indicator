@@ -4,12 +4,17 @@
 .grid-layout {
   columns: 4 200px;
   column-gap: 0.4rem;
+  margin: 0 5rem;
 
   .grid-layout__item {
     width: 150px;
     margin: 0 0.1rem;
     display: inline-block;
     width: 100%;
+  }
+
+  @include tablet{
+    margin: 0;
   }
 
   @include mobile {

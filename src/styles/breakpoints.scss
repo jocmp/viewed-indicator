@@ -1,4 +1,11 @@
+$tablet-width: 768px;
 $mobile-width: 481px;
+
+@mixin tablet {
+  @media (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
 
 // https://davidwalsh.name/write-media-queries-sass
 @mixin mobile {
