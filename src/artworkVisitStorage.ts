@@ -17,7 +17,7 @@ function key(artworkId: ID) {
 }
 
 export function useArtworkVisit(artworkId: ID): ArtworkVisitStorage {
-  const { state, setState } = useLocalStorage<Visit>(key(artworkId));
+  const { state, setState } = useSessionStorage<Visit>(key(artworkId));
 
   function setVisited() {
     setState({ visited: true });
@@ -34,13 +34,13 @@ export function useArtworkVisit(artworkId: ID): ArtworkVisitStorage {
 }
 
 export function clearAllViews() {
-  localStorage.clear();
+  sessionStorage.clear();
   window.location.reload();
 }
 
-function useLocalStorage<T>(key: ID) {
+function useSessionStorage<T>(key: ID) {
   const [state, setState] = useState<T | null>(() => {
-    const initialValue = localStorage.getItem(key);
+    const initialValue = sessionStorage.getItem(key);
     if (initialValue) {
       return JSON.parse(initialValue) as T;
     }
@@ -50,7 +50,7 @@ function useLocalStorage<T>(key: ID) {
   function setStateWithStorage(value: T) {
     try {
       setState(value);
-      localStorage.setItem(key, JSON.stringify(value));
+      sessionStorage.setItem(key, JSON.stringify(value));
     } catch (e) {
       console.error(`Couldn't set item for key ${key}`, e);
     }
