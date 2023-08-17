@@ -1,16 +1,17 @@
-import { useArtworkVisit } from "../artworkVisitStorage";
-import { Artwork } from "../types";
+import React, { useCallback, useMemo } from "react";
+import { useArtworkVisitContext } from "../ArtworkVisitsProvider";
+import { Artwork, ID } from "../types";
 
 interface Props {
   artwork: Artwork;
 }
 
 export function ArtworkCard({ artwork }: Props) {
-  const storage = useArtworkVisit(artwork.id);
-  const hasVisit = storage.hasVisit();
+  const viewModel = useArtworkViewModel(artwork.id);
+  const hasVisit = viewModel.hasVisit;
 
   function onClick() {
-    storage.setVisited();
+    viewModel.setVisited();
   }
 
   return (
@@ -42,4 +43,24 @@ export function ArtworkCard({ artwork }: Props) {
       </a>
     </div>
   );
+}
+
+function useArtworkViewModel(artworkId: ID) {
+  const { visits, setVisits } = useArtworkVisitContext();
+
+  const setVisited = useCallback(() => {
+    const nextVisits = new Set(visits);
+    nextVisits.add(artworkId);
+    setVisits(nextVisits);
+  }, [visits,setVisits, artworkId]);
+
+
+  const hasVisit = useMemo(() => {
+    return visits.has(artworkId);
+  }, [visits, artworkId]);
+
+  return {
+    setVisited,
+    hasVisit,
+  }
 }

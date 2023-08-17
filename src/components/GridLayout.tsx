@@ -5,9 +5,8 @@ export function GridLayout() {
   return (
     <div className="grid-layout">
       {artworks.map((artwork) => (
-        <div className="grid-layout__item">
+        <div className="grid-layout__item" key={artwork.id}>
           <ArtworkCard
-            key={artwork.id}
             artwork={artwork}
           />
         </div>
